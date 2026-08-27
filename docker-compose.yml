@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: moroccan-music-backend
+    ports:
+      - "7860:7860"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=7860
+      - MUSICGEN_MODEL=small
+      - MAX_DURATION_SECONDS=60
+      - OUTPUT_DIR=/app/outputs
+      - CORS_ORIGINS=*
+    volumes:
+      - ./backend/outputs:/app/outputs
+      - hf_cache:/root/.cache/huggingface
+    restart: unless-stopped
+    # Descomenta si tienes GPU NVIDIA + nvidia-container-toolkit instalado:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  hf_cache:
