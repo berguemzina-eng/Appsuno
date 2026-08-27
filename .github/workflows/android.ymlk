@@ -1,4 +1,4 @@
-name: EAS Build
+jname: EAS Build
 
 on:
   push:
