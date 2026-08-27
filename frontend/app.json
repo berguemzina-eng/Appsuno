@@ -1,6 +1,8 @@
 {
+{
   "expo": {
     "name": "Oujda AI Music",
+    "owner": "appsunos-team",
     "slug": "moroccan-music-ai",
     "version": "1.0.0",
     "orientation": "portrait",
