@@ -1,0 +1,16 @@
+# Exported from Render on 2026-08-28T21:48:26Z
+version: "1"
+projects:
+- name: My project
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: Appsuno
+      runtime: docker
+      repo: https://github.com/berguemzina-eng/Appsuno
+      plan: free
+      region: frankfurt
+      dockerContext: backend
+      dockerfilePath: backend/Dockerfile
+      autoDeployTrigger: commit
