@@ -6,7 +6,7 @@
  * para desarrollo local.
  */
 
-export const API_BASE_URL = 'export const API_BASE_URL = 'https://moroccan-music-backend-xxxx.onrender.com';
+export const API_BASE_URL = 'export const API_BASE_URL = export const API_BASE_URL ='https://appsuno.onrender.com';
 
 export type GenerationStatus = 'queued' | 'processing' | 'completed' | 'failed';
 
