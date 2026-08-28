@@ -6,7 +6,7 @@
  * para desarrollo local.
  */
 
-export const API_BASE_URL = 'http://localhost:7860';
+export const API_BASE_URL = 'export const API_BASE_URL = 'https://moroccan-music-backend-xxxx.onrender.com';
 
 export type GenerationStatus = 'queued' | 'processing' | 'completed' | 'failed';
 
