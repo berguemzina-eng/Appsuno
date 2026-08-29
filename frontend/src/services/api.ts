@@ -73,4 +73,43 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({
         prompt: params.prompt,
-        style: p
+        style: params.style,
+        duration: params.duration ?? 30,
+        include_voice: params.includeVoice ?? false,
+        voice: params.voice ?? 'female',
+        voice_text: params.voiceText,
+        temperature: params.temperature ?? 1.0,
+        seed: params.seed,
+      }),
+    }),
+
+  getStatus: (id: string) => request<StatusResponse>(`/api/status/${id}`),
+
+  getDownloadUrl: (id: string) => `${API_BASE_URL}/api/download/${id}`,
+
+  regenerate: (id: string) =>
+    request<GenerateResponse>(`/api/regenerate/${id}`, { method: 'POST' }),
+
+  getLibrary: (limit = 50) =>
+    request<{ items: LibraryItem[] }>(`/api/library?limit=${limit}`),
+
+  /**
+   * Hace polling del estado de una generación hasta que termine o falle.
+   */
+  pollUntilDone: async (
+    id: string,
+    { intervalMs = 2000, timeoutMs = 5 * 60 * 1000 } = {}
+  ): Promise<StatusResponse> => {
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+      const status = await api.getStatus(id);
+      if (status.status === 'completed' || status.status === 'failed') {
+        return status;
+      }
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+    throw new Error('Tiempo de espera agotado generando la música');
+  },
+};
+
+export default api;
